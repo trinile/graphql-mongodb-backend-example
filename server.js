@@ -25,6 +25,9 @@ app.use('/graphql'. graphQLHTTP({
   graphiql: true,
   pretty: true,
   schema: Schema,
+  formatError: error => ({
+    message: error.message,
+  })
 }));
 
 graphQLServer = app.listen(GRAPHQL_PORT, err => {
