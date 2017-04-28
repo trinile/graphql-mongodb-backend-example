@@ -1,16 +1,9 @@
 import QueryType from './types/query';
 import { GraphQLSchema } from 'graphql';
-
-//TODO mutation types
-// var mutationType = new GraphQLObjectType({
-//   name: 'Mutation',
-//   fields: () => ({
-//     //add mutations here
-//   })
-// });
+import UserMutationType from './types/mutations/user';
 
 
 export var Schema = new GraphQLSchema({
   query: QueryType,
-  // mutation: mutationType //TODO
+  mutation: UserMutationType, //TODO
 });

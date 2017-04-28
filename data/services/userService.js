@@ -22,31 +22,18 @@ const getListofUsers = async function() {
   }
 }
 
-const addUser = async (root, req) => {
-  const { 
+const createUser = async ({ username, password, email }) => {
+  console.log('what is user', username, password, email);
+  let newUser = new User({
     username,
-    first_name,
-    last_name,
     password,
     email,
-    posts,
-    comments,
-    friends,
-  } = req
-
-  const newUser = newUser({
-    username,
-    first_name,
-    last_name,
-    password,
-    email,
-    posts,
-    comments,
-    friends,
   });
 
   try {
-    return await newUser.save();
+    newUser = await newUser.save();
+    console.log('what is new user', newUser);
+    return newUser;
   }
   catch(err) {
     return err;
@@ -68,5 +55,5 @@ const addUser = async (root, req) => {
 module.exports = {
   getUserById,
   getListofUsers,
-  addUser,
+  createUser,
 }
