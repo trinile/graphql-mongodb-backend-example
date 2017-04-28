@@ -21,23 +21,26 @@ let graphQLConfig = Object.assign({
     global: false,
     process: false,
     Buffer: false,
-    __filename: false,
-    __dirname: false,
+    __filename: true,
+    __dirname: true,
   },
   externals: [
     /^(?!\.|\/).+/i, //ignore node modules
     /^[a-z\-0-9]+$/, //all non-relative modules are external
   ],
   module: {
-    test: /\.(js|jsx)$/,
-    // exclude: /node_modules/,
-    include: [
-      scriptsPath,
-      dataPath,
-    ],
-    use: [
-      'babel-loader',
-    ],
+    rules: [{
+      test: /\.(js|jsx)$/,
+      include: [
+        scriptsPath,
+        dataPath,
+      ],
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+      options: {
+        presets: ['es2015']
+      },
+    }]
   }
 });
 

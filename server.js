@@ -1,11 +1,8 @@
 import express from 'express';
 import graphQLHTTP from 'express-graphql';
 import path from 'path';
-import webpack from 'webpack';
 import bodyParser from 'body-parser';
-import morgan from 'morgan';
-
-import { graphQLConfig } from './webpack.config.js';
+// import morgan from 'morgan';
 
 //database and schema
 import { Schema } from './data/schema';
@@ -22,7 +19,7 @@ app.use(bodyParser.json()) //parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text({ type: 'application/graphql' }));
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 
 app.use('/graphql', graphQLHTTP({
   graphiql: true,
