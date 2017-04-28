@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-var commentSchema = new mongoose.Schema({
+var CommentSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: true,
@@ -35,18 +35,6 @@ var commentSchema = new mongoose.Schema({
   type: String,
 });
 
+//populate fields and then continue with query
 
-//middleware hooks 
-//before each comment, find the creator/user to populate
-const findCreator = function(next) {
-  this.populate({
-    path: '_creator',
-    select: 'username createdAt _id'
-  });
-  next();
-};
-
-commentSchema.pre('find', findCreator);
-
-
-export default mongoose.model('Comment', commentSchema);
+export default mongoose.model('Comment', CommentSchema);
