@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-var CommentSchema = new mongoose.Schema({
+let CommentSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: true,
