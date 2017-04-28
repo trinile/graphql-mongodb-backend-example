@@ -5,6 +5,7 @@ var PostSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    index: true,
     default: mongoose.Types.ObjectId,
   },
   title: String,
@@ -21,14 +22,15 @@ var PostSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User',
   },
-  _comments: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
+  comments: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment',
+  },
   isDeleted: {
     type: Boolean,
     default: false,
   },
   type: String,
 });
-
-//middleware hooks
 
 export default mongoose.model('Post', PostSchema);

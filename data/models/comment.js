@@ -11,7 +11,7 @@ var CommentSchema = new mongoose.Schema({
     type: String,
     required: true,
     //add vaidation/ length?
-  }
+  },
   created_at: {
     type: Date,
     default: Date.now,
@@ -24,7 +24,7 @@ var CommentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User',
   },
-  _post: {
+  post: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post',
   },

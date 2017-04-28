@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import Post from './post';
 
 let UserSchema = new mongoose.Schema({
   _id: {
@@ -31,11 +30,11 @@ let UserSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  createdAt: {
+  created_at: {
     type: Date,
     default: Date.now,
   },
-  updatedAt: {
+  updated_at: {
     type: Date,
     default: Date.now,
   },
@@ -45,7 +44,7 @@ let UserSchema = new mongoose.Schema({
   },
   type: String,
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
-  posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Note'}],
+  posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
   friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 });
 
