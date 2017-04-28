@@ -1,0 +1,104 @@
+# a Comment created by a user
+type Comment {
+  _id: ID!
+
+  # content of comment
+  text: String
+
+  # user who wrote the comment
+  _creator: User
+
+  # post from which comment was made
+  post: Post
+
+  # date the note was created
+  created_at: MomentDate
+
+  # date user updated comment
+  updated_at: MomentDate
+  type: String!
+}
+
+scalar MomentDate
+
+# An object with an ID
+interface Node {
+  # The global unique ID of an object
+  id: ID!
+
+  # The type of the object
+  type: String!
+}
+
+# a Post created by a user
+type Post {
+  _id: ID!
+
+  # title of the post
+  title: String
+
+  # content of post
+  content: String
+
+  # author id of the post
+  _creator: User
+
+  # comments on the post
+  comments: [Comment]
+
+  # date the post was created
+  created_at: MomentDate
+
+  # date user updated post
+  updated_at: MomentDate
+  type: String!
+}
+
+type Query {
+  # A node interface field
+  node(
+    # Id of node interface
+    id: ID!
+  ): Node
+  users: [User]
+  user(id: ID): User
+  posts: [Post]
+  post(id: ID): Post
+  comments: [Comment]
+  comment(id: ID): Comment
+}
+
+# A person who uses the app
+type User {
+  _id: ID!
+
+  # user's first name
+  first_name: String
+
+  # user's last name
+  last_name: String
+
+  # username created by user
+  username: String
+
+  # user's email address
+  email: String
+
+  # date the user acct created
+  created_at: MomentDate
+
+  # date user updated acct info
+  updated_at: MomentDate
+
+  # type identified for node definitions
+  type: String!
+
+  # posts that belong to User
+  posts: [Post]
+
+  # comments made by User
+  comments: [Comment]
+
+  # friends of user
+  friends: [User]
+}

@@ -3,7 +3,7 @@ const moment = require('moment');
 import {
   GraphQLScalarType,
   GraphQLError
-} = from 'graphql';
+} from 'graphql';
 
 let DateType = new GraphQLScalarType({
   name: 'MomentDate',

@@ -8,8 +8,7 @@ import {
   GraphQLString,
 } from 'graphql';
 
-import { Post } from '../models';
-import { nodeInterface } from '../../node';
+import { nodeInterface } from './../node';
 import DateType  from './customScalars/date';
 import UserType from './user';
 import PostType from './post';
@@ -26,24 +25,24 @@ let CommentType = new GraphQLObjectType({
     },
     text: {
       type: GraphQLString,
-      description: 'content of note',
+      description: 'content of comment',
     },
     //create connection
-    creator: {
+    _creator: {
       type: UserType,
       description: 'user who wrote the comment',
     },
     post: {
       type: PostType,
       description: 'post from which comment was made',
-    }
+    },
     created_at: {
       type: DateType,
       description: 'date the note was created',
     },
     updated_at: {
       type: DateType,
-      description: 'date user updated note',
+      description: 'date user updated comment',
     },
     type: {
       type: new GraphQLNonNull(GraphQLString),

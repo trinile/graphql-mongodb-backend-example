@@ -46,11 +46,11 @@ let UserType = new GraphQLObjectType({
       description: 'user\'s email address',
     },
     created_at: {
-      type: GraphQLString, //TODO: change to Date format
+      type: DateType, //TODO: change to Date format
       description: 'date the user acct created',
     },
     updated_at: {
-      type: GraphQLString, //TODO: change to Date format
+      type: DateType, //TODO: change to Date format
       description: 'date user updated acct info',
     },
     type: {
@@ -58,8 +58,8 @@ let UserType = new GraphQLObjectType({
       description: 'type identified for node definitions'
     },
     posts: {
-      type: new GraphQLList(NoteType),
-      description: 'notes that belong to User'
+      type: new GraphQLList(PostType),
+      description: 'posts that belong to User'
     },
     comments: {
       type: new GraphQLList(CommentType),
