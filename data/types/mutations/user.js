@@ -4,10 +4,18 @@ import {
   GraphQLInt,
   GraphQLInputObjectType,
   GraphQLString,
+  GraphQLList,
+  GraphQLID,
 } from 'graphql';
 
 import { userService } from './../../services';
 import UserType from '../user';
+import PostType from '../post';
+import CommentType from '../comment';
+import DateType from '../customScalars/date';
+
+//import input types 
+// import { updatePost } from './post';
 
 let CreateUserType = new GraphQLInputObjectType({
   name: 'UserInput',
@@ -29,19 +37,62 @@ let CreateUserType = new GraphQLInputObjectType({
   }),
 })
 
+let UpdateUserType = new GraphQLInputObjectType({
+  name: 'updateUser',
+  descriptions: 'changes to user profile',
+  fields: () => ({
+    _id: {
+      type: new GraphQLNonNull(GraphQLID),
+    },
+    first_name: {
+      type: GraphQLString,
+    },
+    last_name: {
+      type: GraphQLString,
+    },
+    username: {
+      type: GraphQLString,
+    },
+    password: {
+      type: GraphQLString,
+    },
+    email: {
+      type: GraphQLString,
+    },
+    //TODO: create input object types for rest of these
+    // posts: {
+    //   type: new GraphQLList(Type),
+    // },
+    // comments: {
+    //   type: new GraphQLList(CommentType),
+    // },
+    // friends: {
+    //   type: new GraphQLList(UserType),
+    // },
+  }),
+});
+
 const UserMutationType = new GraphQLObjectType({
   name: 'UserMutations',
   fields: () => ({
-//     //add mutations here
     createUser: {
       type: UserType,
       description: 'new user signs up with app',
       args: {
         user: { type: CreateUserType }
       },
-      resolve: (value, { user }) => {
-        console.log('what is user --->', user);
+      resolve: (root, { user }) => {
         return userService.createUser(user);
+      }
+    },
+    updateUser: {
+      type: UserType,
+      description: 'user makes changes to profile',
+      args: {
+        user: { type: UpdateUserType }
+      },
+      resolve: (root, { user }) => {
+        return userService.updateUser(user);
       }
     }
   })
