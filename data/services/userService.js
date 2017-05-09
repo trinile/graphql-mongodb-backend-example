@@ -1,4 +1,5 @@
 import { User } from './../models';
+import _ from 'lodash';
 
 const getUserById = async function(_id) {
   try {
@@ -37,7 +38,6 @@ const createUser = async ({ username, password, email }) => {
   }
 };
 
-// TODO: create function for updating user
 const updateUser = async (user) => {
   const { 
     _id,
@@ -57,17 +57,29 @@ const updateUser = async (user) => {
   last_name ? updates.last_name = last_name : null;
   email ? updates.email = email : null;
   password ? updates.password = password : null;
+  //TODO: add updating friends, posts, comments
+  //SHOULD IT BE HERE??
   // friends ? updates.friends = friends : null;
   // posts ? updates.posts = posts : null;
   // comments ? updates.comments = comments : null;
   updates.updated_at = Date.now();
-
   console.log('what are updates', updates);
   try {
-    let user = await User.findOneAndUpdate({ _id }, updates, { new: true }).exec();
-    console.log('successfully updated user', user);
-    return user;
-
+    //if updating password, call find, then save() methods to re-hash password.
+    if (updates.password) {
+      let user = await User.findById({ _id }).exec();
+      _.forEach(updates, (update, key) => {
+        user[key] = update;
+      })
+      user = user.save();
+      return user;
+    }
+    else {
+      // must set { new: true } option to return updated entry
+      //mongo will return user before updates otherwise
+      let user = await User.findOneAndUpdate({ _id }, updates, { new: true }).exec();
+      return user;
+    }
   }
   catch (err) {
     return err;
