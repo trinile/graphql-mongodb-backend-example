@@ -9,7 +9,7 @@ let DateType = new GraphQLScalarType({
   name: 'MomentDate',
 
   // What gets returned to the caller after being queried
-  serialize: value => moment(value).format("dddd, MMMM Do YYYY"),
+  serialize: value => moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a"),
 
   // What is parsed when the value is embedded into the query string
   parseLiteral: value => validateDateString(value),
