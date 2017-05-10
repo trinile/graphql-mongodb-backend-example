@@ -1,6 +1,7 @@
 import { Post, User, Comment } from '../models';
 
-
+//TODO: complete comment service
+// hook up to posts and user
 const getCommentById = async (root, { id }) => {
   try {
     let comment = await Comment.findOne({ _id  }).exec();

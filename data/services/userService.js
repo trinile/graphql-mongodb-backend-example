@@ -51,19 +51,16 @@ const updateUser = async (user) => {
     comments,
   } = user;
 
+  //TODO: add updating friends, posts, comments
   let updates = {};
   username ? updates.username = username : null;
   first_name ? updates.first_name = first_name : null;
   last_name ? updates.last_name = last_name : null;
   email ? updates.email = email : null;
   password ? updates.password = password : null;
-  //TODO: add updating friends, posts, comments
-  //SHOULD IT BE HERE??
-  // friends ? updates.friends = friends : null;
-  // posts ? updates.posts = posts : null;
-  // comments ? updates.comments = comments : null;
   updates.updated_at = Date.now();
-  console.log('what are updates', updates);
+  //updating user posts
+  posts ? updates = { $push: { posts }, ...updates } : updates;
   try {
     //if updating password, call find, then save() methods to re-hash password.
     if (updates.password) {

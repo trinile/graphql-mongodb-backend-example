@@ -1,9 +1,9 @@
 import QueryType from './types/query';
 import { GraphQLSchema } from 'graphql';
-import UserMutationType from './types/mutations/user';
+import RootMutations from './types/mutations';
 
 
 export var Schema = new GraphQLSchema({
   query: QueryType,
-  mutation: UserMutationType, //TODO
+  mutation: RootMutations,//TODO
 });

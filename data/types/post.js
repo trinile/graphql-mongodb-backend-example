@@ -34,7 +34,7 @@ let PostType = new GraphQLObjectType({
     },
     //create connection
     _creator: {
-      type: UserType,
+      type: new GraphQLNonNull(GraphQLID),
       description: 'author id of the post',
     },
     comments: {

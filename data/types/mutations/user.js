@@ -72,30 +72,27 @@ let UpdateUserType = new GraphQLInputObjectType({
   }),
 });
 
-const UserMutationType = new GraphQLObjectType({
-  name: 'UserMutations',
-  fields: () => ({
-    createUser: {
-      type: UserType,
-      description: 'new user signs up with app',
-      args: {
-        user: { type: CreateUserType }
-      },
-      resolve: (root, { user }) => {
-        return userService.createUser(user);
-      }
+const UserMutations = {
+  createUser: {
+    type: UserType,
+    description: 'new user signs up with app',
+    args: {
+      user: { type: CreateUserType }
     },
-    updateUser: {
-      type: UserType,
-      description: 'user makes changes to profile',
-      args: {
-        user: { type: UpdateUserType }
-      },
-      resolve: (root, { user }) => {
-        return userService.updateUser(user);
-      }
+    resolve: (root, { user }) => {
+      return userService.createUser(user);
     }
-  })
-});
+  },
+  updateUser: {
+    type: UserType,
+    description: 'user makes changes to profile',
+    args: {
+      user: { type: UpdateUserType }
+    },
+    resolve: (root, { user }) => {
+      return userService.updateUser(user);
+    }
+  }
+}
 
-export default UserMutationType;
+export default UserMutations;

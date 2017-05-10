@@ -20,15 +20,13 @@ let CreatePostType = new GraphQLInputObjectType({
   fields: () => ({
     title: {
       type: GraphQLString,
-      description: 'title of the post',
     },
     content: {
       type: GraphQLString,
-      description: 'content of post',
     },
     //create connection
     _creator: {
-      type: UserType,
+      type: new GraphQLNonNull(GraphQLID),
       description: 'author id of the post',
     },
   })
@@ -38,9 +36,9 @@ let UpdatePostType = new GraphQLInputObjectType({
   name: 'updatePost',
   description: 'changes made to a post',
   fields: () => ({
-    id: {
+    _id: {
       type: new GraphQLNonNull(GraphQLID),
-    }
+    },
     title: {
       type: GraphQLString,
     },
@@ -48,40 +46,35 @@ let UpdatePostType = new GraphQLInputObjectType({
       type: GraphQLString,
     },
     _creator: {
-      type: UserType,
+      type: new GraphQLNonNull(GraphQLID),
       description: 'author id of the post',
     },
     //remember to update update_at field to time reflect changes made
   }),
 });
 
-const PostMutationType = new GraphQLObjectType({
-  name: 'Post Mutations',
-  description: 'mutations done to posts',
-  fields: () => {
-    createPost: {
-      type: PostType,
-      args: {
-        post: { type: PostType },
-      },
-      resolve: (root, post) => {
-        return postService.createPost(post);
-      }
+const PostMutations = {
+  createPost: {
+    type: PostType,
+    description: 'creating a new post',
+    args: {
+      input: { type: CreatePostType },
     },
-    updatePost: {
-      type: PostType,
-      args: {
-        post: { type: PostType }
-      },
-      resolve: (root, post) => {
-        return postService.updatePost(post);
-      }
-    }
+    resolve: (root, { input }) => {
+      //root undefined
+      return postService.createPost(input);
+    },
+  },
+  updatePost: {
+    type: PostType,
+    args: {
+      input: { type: UpdatePostType }
+    },
+    resolve: (root, { input }) => {
+      return postService.updatePost(input);
+    },
   }
-})
-
-module.exports = {
-  CreatePostType,
-  UpdatePostType,
-  PostMutationType,
 };
+
+
+export default PostMutations;
