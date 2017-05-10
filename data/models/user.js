@@ -57,10 +57,8 @@ let UserSchema = new mongoose.Schema({
 //add hook for hashing password with bcrypt
 UserSchema.pre('save', async function(next) {
   //only hash passord if is is new or has been modified.
-  console.log('in save function');
   let user = this;
   if (!user.isModified('password')) {
-    console.log('is it modified?????/')
     return next();
   }
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
