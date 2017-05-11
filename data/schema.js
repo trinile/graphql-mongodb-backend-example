@@ -5,5 +5,7 @@ import RootMutations from './types/mutations';
 
 export var Schema = new GraphQLSchema({
   query: QueryType,
-  mutation: RootMutations,//TODO
+  mutation: RootMutations,
 });
+
+console.log('hello, updated schema!sdf');

@@ -1,6 +1,8 @@
 node_modules
 .DS_Store
 npm-debug.log
+*.log
 build/
-.data/schema.json
-.data/schema.graphql
+data/schema.json
+data/schema.graphql
+/config

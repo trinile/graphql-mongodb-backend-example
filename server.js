@@ -13,6 +13,10 @@ const GRAPHQL_PORT = config.port;
 
 let graphQLServer;
 
+if (graphQLServer) {
+  graphQLServer.close();
+}
+
 const app = express();
 
 app.use(bodyParser.json()) //parsing application/json
