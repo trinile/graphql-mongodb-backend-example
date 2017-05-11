@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-
+// const sourceMapSupport = require('source-map-support');
 const dataPath = path.join(__dirname, './data');
 const scriptsPath = path.join(__dirname, './scripts');
 const buildPath = path.join(__dirname, './build');
@@ -12,7 +12,8 @@ let graphQLConfig = Object.assign({
   ],
   output: {
     path: buildPath,
-    filename: 'build-server.js',
+    filename: '[build].backend.js',
+    sourceMapFilename: '[build].backend.map',
     libraryTarget: 'commonjs',
   },
   target: 'node',
@@ -28,6 +29,11 @@ let graphQLConfig = Object.assign({
     /^(?!\.|\/).+/i, //ignore node modules
     /^[a-z\-0-9]+$/, //all non-relative modules are external
   ],
+  plugins: [
+    //ignore css files if loading client-side files server-side(in future)?
+    // new NormalModuleReplacementPlugin(/\.css$/, 'node-noop')
+  ],
+  cache: true,
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
@@ -38,12 +44,12 @@ let graphQLConfig = Object.assign({
       exclude: /node_modules/,
       loader: 'babel-loader',
       options: {
-        presets: ['es2015']
+        cacheDirectory: true,
+        presets: ['es2015', 'stage-0'],
       },
     }]
   }
 });
 
-module.exports = {
-  graphQLConfig
-};
+module.exports = graphQLConfig;
+
