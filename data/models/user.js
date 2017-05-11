@@ -76,7 +76,7 @@ UserSchema.pre('save', async function(next) {
   });
 });
 
-//TODO: hook up hashpassword in pre-save using async await
+// TODO: hook up hashpassword in pre-save using async await
 UserSchema.methods.hashPassword = async function(password, next) {
   let user = this;
   try {
@@ -85,14 +85,13 @@ UserSchema.methods.hashPassword = async function(password, next) {
     // console.log('what is salt, hash', hash, salt);
     user.salt = salt;
     user.password = hash;
-    console.log('in hashing new password', user.password, user.salt);
     return next(user);
 
   } catch(err) {
     return next(err);
   }
 }
-
+//TODO: hook up method to validating user login
 UserSchema.methods.isValidPassword = async function(password, cb) {
   try {
     let isValid = bcrypt.compare(password, this.password);
